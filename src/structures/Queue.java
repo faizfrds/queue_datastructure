@@ -1,5 +1,6 @@
 package structures;
 
+import java.util.EmptyStackException;
 import java.util.NoSuchElementException;
 
 /**************************************************************************************
@@ -96,9 +97,30 @@ public class Queue<T> implements UnboundedQueueInterface<T> {
 	@Override
 	public UnboundedQueueInterface<T> reversed() {
             // TODO 8
-		return null;
+		if (size == 1) throw new EmptyStackException();
+
+		Queue<T> q = new Queue<>();
+		Node<T> curNode = head;
+
+		while (curNode != null){
+
+			q.enqueue(curNode.data);
+			curNode = curNode.next;
+		}
+
+		return q;
 
 	}
+
+	/*public Node<T> reverseHelper(Queue<T> q, Node<T> curNode){
+
+		if (curNode.next == null){
+			q.enqueue(curNode.data);
+			return curNode;
+		}
+
+		return curNode;
+	}*/
 
 }
 
