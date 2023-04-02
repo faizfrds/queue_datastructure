@@ -97,7 +97,6 @@ public class Queue<T> implements UnboundedQueueInterface<T> {
 	@Override
 	public UnboundedQueueInterface<T> reversed() {
             // TODO 8
-		if (size == 1) throw new EmptyStackException();
 
 		Queue<T> q = new Queue<>();
 		Node<T> curNode = head;
