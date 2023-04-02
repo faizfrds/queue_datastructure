@@ -96,14 +96,10 @@ public class Queue<T> implements UnboundedQueueInterface<T> {
 	@Override
 	public UnboundedQueueInterface<T> reversed() {
             // TODO 8
-			Queue<T> newQ = new LinkedList<T>();
-
+			
 
 	}
 
-	public Node<T> recursiveHelper(){
-		Queue<T> newQueue = new;
-	}
 }
 
 class Node<T> {
