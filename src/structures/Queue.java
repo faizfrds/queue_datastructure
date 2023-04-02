@@ -96,7 +96,7 @@ public class Queue<T> implements UnboundedQueueInterface<T> {
 	@Override
 	public UnboundedQueueInterface<T> reversed() {
             // TODO 8
-			
+		return null;
 
 	}
 
