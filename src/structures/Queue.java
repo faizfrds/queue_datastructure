@@ -17,16 +17,12 @@ public class Queue<T> implements UnboundedQueueInterface<T> {
 	public Queue() {		
             // TODO 1
 			head = null;
-			tail = null;
 			size = 0;
-
-
     }
 	
 	public Queue(Queue<T> other) {
             // TODO 2
 			head = null;
-			tail = null;
 			size = 0;
 			Node<T> curNode = other.head;
 
@@ -60,28 +56,39 @@ public class Queue<T> implements UnboundedQueueInterface<T> {
 
 			if (head == null){
 				head = newNode;
-				tail = newNode;
+				//tail = newNode;
 				size++;
+				
 			}
 			else{
-				tail.next = newNode;
-				tail = newNode;
+				Node<T> curNode = head;
+				while (curNode.next != null){
+					curNode = curNode.next;
+				}
+				curNode.next = newNode;
+				size++;
 			}
+			
 
 	}
 
 	@Override
 	public T dequeue() throws NoSuchElementException {
             // TODO 6
-			if (head == null) throw new NoSuchElementException();
+			if (head == null) throw new NoSuchElementException("abc");
 			
-			Node<T> curHead = head;
+			T curHead = head.data;
+
+			if (head.next == null){
+				head = null;
+				size--;
+				return curHead;
+			}
+
 			head = head.next;
 			size--;
 
-			if (head == null) tail = null;
-
-			return curHead.data;
+			return curHead;
 	}
 
 	@Override
@@ -98,28 +105,16 @@ public class Queue<T> implements UnboundedQueueInterface<T> {
 	public UnboundedQueueInterface<T> reversed() {
             // TODO 8
 
-		Queue<T> q = new Queue<>();
+		Queue<T> reversedQ = new Queue<T>();
 		Node<T> curNode = head;
 
 		while (curNode != null){
-
-			q.enqueue(curNode.data);
+			reversedQ.enqueue(curNode.data);
 			curNode = curNode.next;
 		}
 
-		return q;
-
+		return reversedQ;
 	}
-
-	/*public Node<T> reverseHelper(Queue<T> q, Node<T> curNode){
-
-		if (curNode.next == null){
-			q.enqueue(curNode.data);
-			return curNode;
-		}
-
-		return curNode;
-	}*/
 
 }
 
@@ -131,4 +126,3 @@ class Node<T> {
 		this.data = data; this.next=next;
 	}
 }
-

@@ -1,6 +1,7 @@
 package sorting;
 
 import structures.Queue;
+import structures.UnboundedQueueInterface;
 
 /**
  * A class containing methods to sort queues and merge sorted queues.
@@ -32,11 +33,22 @@ public class MergeSorter<T extends Comparable<T>> {
 	 * @return a sorted copy of the input queue
 	 */
 	public Queue<T> mergeSort(Queue<T> queue) {
+
 		Queue<T> input = new Queue<T>(queue);
+
+		if (queue.getSize() <= 1){
+			return input;
+		}
+
 		Queue<T> output1 = new Queue<T>();	// output queue 1		
 		Queue<T> output2 = new Queue<T>();	// output queue 2
         	// TODO 1
-            return null;
+
+		split(input, output1, output2);
+		Queue<T> sortedVer1 = mergeSort(output1);
+		Queue<T> sortedVer2 = mergeSort(output2);
+
+		return merge(sortedVer1, sortedVer2);
 	}
 
 	/**
@@ -49,6 +61,17 @@ public class MergeSorter<T extends Comparable<T>> {
 	 */
 	void split(Queue<T> input, Queue<T> output1, Queue<T> output2) {
         	// TODO 2
+
+		int mid = input.getSize()/2;
+		int size = input.getSize();
+
+		for (int i = 0; i < mid; i++){
+			output1.enqueue(input.dequeue());
+		}
+
+		for (int j = mid; j < size; j++){
+			output2.enqueue(input.dequeue());
+		}
 	}
 	
 	/**
@@ -66,6 +89,25 @@ public class MergeSorter<T extends Comparable<T>> {
 	Queue<T> merge(Queue<T> input1, Queue<T> input2) {
 		Queue<T> output = new Queue<T>();
         	// TODO 3
-            return null;
+
+			while (!input1.isEmpty() && !input2.isEmpty()){ //while both not empty
+
+				if (input1.peek().compareTo(input2.peek()) < 0){
+					output.enqueue(input1.dequeue());
+				}
+				else{
+					output.enqueue(input2.dequeue());
+				}
+			}
+
+			while (!input1.isEmpty()) { //input 2 empty
+				output.enqueue(input1.dequeue());
+			}
+	
+			while (!input2.isEmpty()) {//input 1 empty
+				output.enqueue(input2.dequeue());
+			}
+
+            return output;
 	}
 }
